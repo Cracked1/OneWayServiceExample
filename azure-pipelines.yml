@@ -7,7 +7,7 @@ trigger:
 - master
 
 pool:
-  vmImage: 'vs2017-win2016'
+  vmImage: 'vs2015-win2012r2'
 
 variables:
   solution: '**/*.sln'
@@ -21,6 +21,12 @@ variables:
   customPTCloseStatus: 'Closed'
 
 steps:
+
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    useGlobalJson: true
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
@@ -32,7 +38,7 @@ steps:
     command: 'custom'
     projects: 'D:\a\1\s\OneWayServiceExample.Server\OneWayServiceExample.Server.csproj'
     custom: 'add'
-    arguments: 'package Microsoft.CodeAnalysis.FxCopAnalyzers --version 2.9.3'
+    arguments: 'package Microsoft.CodeAnalysis.FxCopAnalyzers --version 1.2.0-beta2'
 
 
 - task: VSBuild@1
